@@ -8,6 +8,25 @@ import torch
 from torch import nn
 
 
+
+class MHA(nn.Module):
+    def __init__(self, d_model, num_head):
+        super().__init__()
+        assert d_model % num_head == 0
+        self.d_k = d_model // num_head
+
+        self.num_head = num_head
+        self.K_w = nn.Linear(d_model, d_model)
+        self.Q_w = nn.Linear(d_model, d_model)
+        self.V_w = nn.Linear(d_model, d_model)
+        self.O_w = nn.Linear(d_model, d_model)
+
+
+    def split_head(self):
+        batch_size, d_model, 
+        
+
+
 # class 用来定义类；继承 nn.Module 后，该类才能作为 PyTorch 网络层使用。
 class MultiHeadAttention(nn.Module):
     # __init__ 是构造函数；self 表示当前对象；d_model 是总维度，num_heads 是头数。
@@ -77,9 +96,6 @@ class MultiHeadAttention(nn.Module):
         output = self.out_proj(output)
         # return 可以一次返回多个对象，这里同时返回输出和注意力权重。
         return output, weights
-
-
-
 
 
 # __name__ 是 Python 内置变量；直接运行本文件时它等于 "__main__"。
